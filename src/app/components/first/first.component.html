@@ -1,0 +1,22 @@
+<section>
+    <div class="example-label">
+        <h2>
+            Product catalog
+        </h2>
+    </div>
+    <div class="example-label">Name - {{name}}</div>
+    <div class="example-label">Description - {{description}}</div>
+    <div class="example-label">Price - {{price}}</div>
+    <div class="example-row">
+        <mat-checkbox class="example-margin" [checked]="isAvailable" [disabled]="true">Is available</mat-checkbox>
+    </div>
+    <div class="example-label">Category - {{category}}</div>
+    <div class="example-row">
+        <div class="example-label">Release years:</div>
+        <mat-list>
+            <mat-list-item *ngFor="let year of releaseYears">
+                {{year}}
+            </mat-list-item>
+        </mat-list>
+    </div>
+</section>
