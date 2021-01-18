@@ -1,0 +1,20 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="pannel-title">
+            <span class="glyphicon glyphicon-plus-sign">                
+            </span> Your cart
+        </h4>
+    </div>
+    <div class="panel-body">
+        <div *ngFor="let product of products; trackBy: trackByItems">
+            <ul>
+                <li>Name: {{product.name}}</li>
+                <li>Description: {{product.description}}</li>
+                <li>Price: {{product.price}}</li>
+                <li>Is available: {{product.isAvailable}}</li>
+                <li>Category: {{product.category}}</li>
+            </ul>
+            <button class="btn btn-primary" (click)="onRemove(product)">Remove from cart</button>
+        </div>
+    </div>
+</div>
