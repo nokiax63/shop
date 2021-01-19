@@ -6,6 +6,7 @@ import { Product } from 'src/app/product/models/product';
 })
 export class CartService {
 
+  // + количество купленого товара
   products: Product[] = [];
 
   constructor() { }

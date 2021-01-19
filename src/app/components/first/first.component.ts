@@ -12,6 +12,7 @@ export enum Category {
 })
 export class FirstComponent implements OnInit {
 
+  // модификатор public не нужен
   public name = 'Audi Q5';
   public description = 'Audi car';
   public price = 10000;
