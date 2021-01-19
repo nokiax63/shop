@@ -11,6 +11,7 @@ import { ProductService } from '../../services/product.service';
 export class ProductListComponent implements OnInit {
 
   products: Product[] = [];
+  // Думаю, что тип этой коллекции должен включать еще и количество купленого товара
   productsInCart: Product[] = [];
 
   constructor(private productsService: ProductService) { }
