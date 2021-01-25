@@ -10,10 +10,14 @@ export enum ProductColor {
 }
 
 export class Product {
-    name = '';
-    description = '';
-    price = 0;
-    isAvailable = false;
-    category: ProductCategory = ProductCategory.Phone;
-    color: ProductColor[] = [];
+    constructor(
+        public id: number = 0,
+        public name: string = '',
+        public description = '',
+        public price = 0,
+        public isAvailable = false,
+        public category: ProductCategory = ProductCategory.Phone,
+        public color: ProductColor[] = []
+    ) {
+    }
 }

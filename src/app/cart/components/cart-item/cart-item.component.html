@@ -1,0 +1,15 @@
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <ul>
+            <li>Name: {{productInCart.product.name}}</li>
+            <li>Description: {{productInCart.product.description}}</li>
+            <li>Quantity: {{productInCart.quantity}}</li>
+            <li>Price: {{productInCart.product.price}}</li>
+            <li>Category: {{productInCart.product.category}}</li>
+        </ul>
+        <button class="btn btn-primary" (click)="onRemove(productInCart)">remove</button>
+        <button class="btn btn-primary" (click)="onAddQuantity(productInCart)">add quantity</button>
+        <button class="btn btn-primary" (click)="onSubstractQuantity(productInCart)">substract quantity</button>
+    </div>
+</div>

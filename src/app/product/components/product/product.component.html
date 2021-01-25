@@ -1,13 +1,12 @@
 
 <div class="panel panel-default">
+    <div class="panel-heading">{{product.name}}</div>
     <div class="panel-body">
         <ul>
-            <li>Name: {{product.name}}</li>
             <li>Description: {{product.description}}</li>
             <li>Price: {{product.price}}</li>
-            <li>Is available: {{product.isAvailable}}</li>
             <li>Category: {{product.category}}</li>
         </ul>
-        <button class="btn btn-primary" (click)="onBuy()">Buy</button>
+        <button class="btn btn-primary" [disabled]="!product.isAvailable" (click)="onBuy()">Buy</button>
     </div>
 </div>

@@ -1,20 +1,24 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <h4 class="pannel-title">
-            <span class="glyphicon glyphicon-plus-sign">                
-            </span> Your cart
+            Your cart
         </h4>
     </div>
-    <div class="panel-body">
-        <div *ngFor="let product of products; trackBy: trackByItems">
-            <ul>
-                <li>Name: {{product.name}}</li>
-                <li>Description: {{product.description}}</li>
-                <li>Price: {{product.price}}</li>
-                <li>Is available: {{product.isAvailable}}</li>
-                <li>Category: {{product.category}}</li>
-            </ul>
-            <button class="btn btn-primary" (click)="onRemove(product)">Remove from cart</button>
-        </div>
+    <div class="panel-body" *ngIf="productsInCart.length>0; else elseBlock">
+        <app-cart-item 
+            *ngFor="let productInCart of productsInCart"
+            [productInCart]="productInCart"
+            (removeProductTask)="onRemove($event)"
+            (addProductInCartTask)="onAddQuantity($event)"
+            (substractProductInCart)="onSubstractQuantity($event)">
+        </app-cart-item>
     </div>
+    <ng-template #elseBlock>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                Cart is empty
+            </div>
+        </div>
+    </ng-template>
+  <div class="panel-footer">Products in cart {{totalAmount}}. Total sum: {{totalSum}}</div>
 </div>

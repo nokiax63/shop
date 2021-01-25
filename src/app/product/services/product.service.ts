@@ -6,35 +6,13 @@ import { Product, ProductCategory, ProductColor } from '../../product/models/pro
 })
 export class ProductService {
 
-  products: Product[] = [
-    {
-      category: ProductCategory.Phone,
-      name: 'Xiaomi 8',
-      color: [ ProductColor.Black, ProductColor.White],
-      price: 6200,
-      isAvailable: true,
-      description: 'Xiaomi is chinese phone'
-    },
-    {
-      category: ProductCategory.Phone,
-      name: 'Iphone 11',
-      color: [ ProductColor.Red, ProductColor.White],
-      price: 28000,
-      isAvailable: true,
-      description: 'Iphone is a shit'
-    },
-    {
-      category: ProductCategory.Notebook,
-      name: 'Asus Vivobook',
-      color: [ ProductColor.Black, ProductColor.White],
-      price: 21000,
-      isAvailable: false,
-      description: 'Good laptop'
-    }];
-
   constructor() { }
 
-  getProducts(): Product[] {
-    return this.products;
+  getProducts(): Array<Product> {
+    return [
+      new Product(1, 'Xiaomi 8', 'Xiaomi is chinese phone', 6200, true, ProductCategory.Phone, [ProductColor.Black, ProductColor.White]),
+      new Product(2, 'Iphone 11', 'Iphone is a shit', 28000, false, ProductCategory.Phone, [ProductColor.Red, ProductColor.White]),
+      new Product(3, 'Asus Vivobook', 'Good laptop', 21000, true, ProductCategory.Notebook, [ProductColor.Black, ProductColor.White])
+    ];
   }
 }

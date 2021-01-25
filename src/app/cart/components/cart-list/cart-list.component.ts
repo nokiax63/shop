@@ -1,23 +1,53 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '../../../product/models/product';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { CommunicationService } from '../../../order/services/communication.service';
+import { CartService } from '../../../cart/services/cart.service';
+import { ProductInCart } from '../../models/productInCart';
 
 @Component({
   selector: 'app-cart-list',
   templateUrl: './cart-list.component.html',
   styleUrls: ['./cart-list.component.css']
 })
-export class CartListComponent implements OnInit {
-  @Input() products: Product[] = [];
-  @Output() removeFromCart: EventEmitter<Product> = new EventEmitter();
+export class CartListComponent implements OnInit, OnDestroy  {
 
-  trackByItems(index: number, item: Product): string { return item.name; }
+  private sub!: Subscription;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  get totalAmount(): number {
+    return this.cartService.getTotalAmount();
   }
 
-  onRemove(product: Product): void {
-    this.removeFromCart.emit(product);
+  get totalSum(): number {
+    return this.cartService.getTotalSum();
+  }
+
+  get productsInCart(): Array<ProductInCart> {
+    return this.cartService.getProducts();
+  }
+
+  constructor(
+    private communicationService: CommunicationService,
+    private cartService: CartService) { }
+
+  ngOnInit(): void {
+    this.sub = this.communicationService.channel$.subscribe(
+      data => this.cartService.addProduct(data)
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
+  onAddQuantity(productInCart: ProductInCart): void {
+    this.cartService.addProduct(productInCart.product);
+  }
+
+  onSubstractQuantity(productInCart: ProductInCart): void {
+    this.cartService.substractProductFromCart(productInCart);
+  }
+
+  onRemove(product: ProductInCart): void {
+    this.cartService.removeProduct(product);
   }
 }
