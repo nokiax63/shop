@@ -9,8 +9,8 @@ import { ProductInCart } from '../../models/productInCart';
 export class CartItemComponent implements OnInit {
   @Input() productInCart: ProductInCart = new ProductInCart();
   @Output() removeProductTask: EventEmitter<ProductInCart> = new EventEmitter();
-  @Output() addProductInCartTask: EventEmitter<ProductInCart> = new EventEmitter();
-  @Output() substractProductInCart: EventEmitter<ProductInCart> = new EventEmitter();
+  @Output() increaseQuantity: EventEmitter<ProductInCart> = new EventEmitter();
+  @Output() decreaseQuantity: EventEmitter<ProductInCart> = new EventEmitter();
 
   constructor() { }
 
@@ -22,11 +22,11 @@ export class CartItemComponent implements OnInit {
     this.removeProductTask.emit(productInCart);
   }
 
-  onAddQuantity(productInCart: ProductInCart): void {
-    this.addProductInCartTask.emit(productInCart);
+  onIncreaseQuantity(productInCart: ProductInCart): void {
+    this.increaseQuantity.emit(productInCart);
   }
 
-  onSubstractQuantity(productInCart: ProductInCart): void {
-    this.substractProductInCart.emit(productInCart);
+  onDecreaseQuantity(productInCart: ProductInCart): void {
+    this.decreaseQuantity.emit(productInCart);
   }
 }

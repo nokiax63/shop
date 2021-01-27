@@ -16,7 +16,7 @@ export class CartService {
   }
 
   addProduct(product: Product): void {
-    const productInCart = this.productsInCart.find(x => x.product.id === product.id);    
+    const productInCart = this.productsInCart.find(x => x.product.id === product.id);
     if (productInCart) {
       productInCart.quantity += 1;
     }
@@ -25,7 +25,7 @@ export class CartService {
     }
   }
 
-  substractProductFromCart(productInCart: ProductInCart): void {    
+  substractProductFromCart(productInCart: ProductInCart): void {
     const index = this.productsInCart.indexOf(productInCart);
     const productFromCart = this.productsInCart[index];
     if (productFromCart.quantity === 1) {
@@ -52,10 +52,10 @@ export class CartService {
 
   getTotalSum(): number {
     let sum = 0;
-    this.productsInCart.forEach(x=> {
+    this.productsInCart.forEach(x => {
       sum += x.quantity * x.product.price;
       return x;
-    })      
+    });
     return sum;
   }
 }

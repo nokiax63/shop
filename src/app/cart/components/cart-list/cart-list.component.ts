@@ -39,11 +39,11 @@ export class CartListComponent implements OnInit, OnDestroy  {
     this.sub.unsubscribe();
   }
 
-  onAddQuantity(productInCart: ProductInCart): void {
+  onIncreaseQuantity(productInCart: ProductInCart): void {
     this.cartService.addProduct(productInCart.product);
   }
 
-  onSubstractQuantity(productInCart: ProductInCart): void {
+  onDecreaseQuantity(productInCart: ProductInCart): void {
     this.cartService.substractProductFromCart(productInCart);
   }
 

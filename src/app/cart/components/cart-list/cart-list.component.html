@@ -9,8 +9,8 @@
             *ngFor="let productInCart of productsInCart"
             [productInCart]="productInCart"
             (removeProductTask)="onRemove($event)"
-            (addProductInCartTask)="onAddQuantity($event)"
-            (substractProductInCart)="onSubstractQuantity($event)">
+            (increaseQuantity)="onIncreaseQuantity($event)"
+            (decreaseQuantity)="onDecreaseQuantity($event)">
         </app-cart-item>
     </div>
     <ng-template #elseBlock>
