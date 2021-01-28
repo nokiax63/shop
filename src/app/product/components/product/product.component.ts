@@ -10,7 +10,7 @@ import { Product } from '../../models/product';
 export class ProductComponent implements OnInit {
 
   @Input() product: Product = new Product();
-  @Output() buyProductTask: EventEmitter<any> = new EventEmitter();
+  @Output() buyProductTask: EventEmitter<Product> = new EventEmitter<Product>();
 
   constructor() { }
 

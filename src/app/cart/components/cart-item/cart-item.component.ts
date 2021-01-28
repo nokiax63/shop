@@ -18,6 +18,8 @@ export class CartItemComponent implements OnInit {
 
   }
 
+  // можно уменьшить немножко код шаблона, убрав параметр и использовать внутри методов
+  // this.productInCart
   onRemove(productInCart: ProductInCart): void {
     this.removeProductTask.emit(productInCart);
   }
