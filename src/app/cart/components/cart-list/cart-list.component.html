@@ -5,6 +5,7 @@
         </h4>
     </div>
     <div class="panel-body" *ngIf="productsInCart.length>0; else elseBlock">
+        <button *ngIf="!isEmptyCart" class="btn btn-primary" (click)="onClear()">clear</button>
         <app-cart-item 
             *ngFor="let productInCart of productsInCart"
             [productInCart]="productInCart"

@@ -5,10 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderModule } from '../app/order/order.module';
+import { FirstComponent } from '../app/first/first.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FirstComponent
   ],
   imports: [
     OrderModule,

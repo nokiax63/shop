@@ -14,15 +14,19 @@ export class CartListComponent implements OnInit, OnDestroy  {
   private sub!: Subscription;
 
   get totalAmount(): number {
-    return this.cartService.getTotalAmount();
+    return this.cartService.totalQuantity;
   }
 
   get totalSum(): number {
-    return this.cartService.getTotalSum();
+    return this.cartService.totalSum;
   }
 
   get productsInCart(): Array<ProductInCart> {
     return this.cartService.getProducts();
+  }
+
+  get isEmptyCart(): boolean {
+    return this.cartService.isEmptyCart();
   }
 
   constructor(
@@ -49,5 +53,9 @@ export class CartListComponent implements OnInit, OnDestroy  {
 
   onRemove(product: ProductInCart): void {
     this.cartService.removeProduct(product);
+  }
+
+  onClear(): void {
+    this.cartService.removeAllProducts();
   }
 }
