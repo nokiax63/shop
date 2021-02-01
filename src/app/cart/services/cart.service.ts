@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { Product } from 'src/app/product/models/product';
 import { ProductInCart } from '../models/productInCart';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CartService {
 
   totalSum = 0;
