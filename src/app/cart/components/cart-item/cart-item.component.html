@@ -2,10 +2,10 @@
 <div appHightlight class="panel-default">
     <div class="panel-body">
         <ul>
-            <li>Name: {{productInCart.product.name}}</li>
+            <li>Name: {{productInCart.product.name| uppercase }}</li>
             <li>Description: {{productInCart.product.description}}</li>
             <li>Quantity: {{productInCart.quantity}}</li>
-            <li>Price: {{productInCart.product.price}}</li>
+            <li>Price: {{productInCart.product.price | currency }}</li>
             <li>Category: {{productInCart.product.category}}</li>
         </ul>
         

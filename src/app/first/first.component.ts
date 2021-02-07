@@ -19,14 +19,14 @@ export class FirstComponent implements OnInit {
 
   constructor(
     @Optional() private configOptionsService: ConfigOptionService,
-    @Inject(StringGenerator) private stringGenerator: any[],    
+    @Inject(StringGenerator) private stringGenerator: any[],
     @Optional() private localStorageService: LocalStorageService) { }
 
     ngOnInit(): void {
       this.configOptionsService.setConfig(new ConfigModel(1, 'login', 'password'));
       console.log(this.configOptionsService.getConfig());
       console.log(`Random string with 10 elements: ${this.stringGenerator}`);
-      this.localStorageService.setItem('name', 'Easy shop');      
+      this.localStorageService.setItem('name', 'Easy shop');
       console.log(`ShopName - ${this.localStorageService.getItem('name')}`);
     }
 
