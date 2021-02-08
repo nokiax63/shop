@@ -14,3 +14,11 @@ Added:
 Changed:
 1. Cart list
 2. Cart service
+
+7/2/21
+Added:
+1. added order-by.pipe
+2. added built-in pipes in cart item component
+
+Changed:
+1. Product service return observable
