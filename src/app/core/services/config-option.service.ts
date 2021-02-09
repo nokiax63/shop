@@ -14,7 +14,7 @@ export class ConfigOptionService {
     return this.configModel;
   }
 
-  setConfig(config: ConfigModel): void{
-    this.configModel = config;
+  setConfig(config: Partial<ConfigModel>): void {
+    this.configModel = {...this.configModel, ...config};
   }
 }
