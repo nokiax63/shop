@@ -22,6 +22,7 @@ export class ProductService {
       new Product(3, 'Asus Vivobook', 'Good laptop', 21000, true, ProductCategory.Notebook, [ProductColor.Black, ProductColor.White])
     ];
 
+    // или of(products);
     return new Observable<Array<Product>>((obs: Subscriber<any>) => {
       obs.next(products);
     });

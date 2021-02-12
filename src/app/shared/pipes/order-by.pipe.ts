@@ -7,9 +7,13 @@ import { ProductInCart } from 'src/app/cart/models/product-in-cart';
 export class OrderByPipe implements PipeTransform {
 
   transform(value: Array<ProductInCart>| null, key: string, isAsc: boolean): Array<ProductInCart>| null {
-    if (!value) {
-      return [];
+    // if (!value) {
+    //   return [];
+    // }
+    if (!Array.isArray(value)) {
+      return value;
     }
+    
     if (isAsc) {
       return value.sort((a: any, b: any) => {
         if (a.product[key] >= b.product[key]) { return 1; }
