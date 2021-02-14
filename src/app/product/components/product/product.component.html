@@ -7,6 +7,13 @@
             <li>Price: {{product.price}}</li>
             <li>Category: {{product.category}}</li>
         </ul>
-        <button class="btn btn-primary" [disabled]="!product.isAvailable" (click)="onBuy()">Buy</button>
+        <button class="btn btn-warning btn-sm"
+			(click)="onEdit()">
+			Edit
+		</button>
+        <button class="btn btn-primary btn-sm" 
+            [disabled]="!product.isAvailable" 
+            (click)="onBuy()">Buy
+        </button>
     </div>
 </div>

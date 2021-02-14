@@ -1,12 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderModule } from '../app/order/order.module';
 import { FirstComponent } from '../app/first/first.component';
 import { SharedModule } from './shared/shared.module';
+import { LayoutModule } from './layout/layout.module';
+
+import { AppRoutingModule } from './app-routing.module';
+import { ProductModule } from './product/product.module';
+import { Router } from '@angular/router';
+
 
 @NgModule({
   declarations: [
@@ -14,13 +19,26 @@ import { SharedModule } from './shared/shared.module';
     FirstComponent
   ],
   imports: [
+    ProductModule,
     OrderModule,
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    LayoutModule,
+
+
+    // must be the last
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+  constructor(router: Router) {
+    const replacer = (key: string, value: any): string =>
+      typeof value === 'function' ? value.name : value;
+
+    console.log('Routes: ', JSON.stringify(router.config, replacer, 2));
+  }
+}

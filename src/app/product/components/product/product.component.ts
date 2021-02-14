@@ -10,7 +10,8 @@ import { Product } from '../../models/product';
 export class ProductComponent implements OnInit {
 
   @Input() product: Product = new Product();
-  @Output() buyProductTask: EventEmitter<Product> = new EventEmitter<Product>();
+  @Output() buyProduct: EventEmitter<Product> = new EventEmitter<Product>();
+  @Output() editProduct: EventEmitter<Product> = new EventEmitter<Product>();
 
   constructor() { }
 
@@ -18,6 +19,10 @@ export class ProductComponent implements OnInit {
   }
 
   onBuy(): void {
-      this.buyProductTask.emit(this.product);
+    this.buyProduct.emit(this.product);
+  }
+
+  onEdit(): void {
+    this.editProduct.emit(this.product);
   }
 }

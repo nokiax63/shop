@@ -9,8 +9,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                <a class="navbar-brand" #appTitle></a>
-                <!-- <a class="navbar-brand" routerLink="/home">Task Manager</a> -->
+                <a class="navbar-brand" #appTitle routerLink="/home"></a>
                 </div>
 
                 <div>
@@ -33,8 +32,11 @@
         </nav>
 
         <div class="container">
-            <div class="col-md-12">                
-                <app-order></app-order>
+            <div class="col-md-12">
+                <router-outlet>
+
+                </router-outlet>
+                <!-- <app-order></app-order> -->
                 <!-- <app-first></app-first> -->
             </div>
         </div>
