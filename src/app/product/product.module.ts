@@ -17,9 +17,6 @@ import { FormsModule } from '@angular/forms';
     ProductRoutingModule,
     FormsModule
   ],
-  exports: [
-    ProductListComponent
-  ],
   providers: [
     ProductService
   ]

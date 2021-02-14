@@ -3,13 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { OrderModule } from '../app/order/order.module';
+// import { OrderModule } from '../app/order/order.module';
 import { FirstComponent } from '../app/first/first.component';
 import { SharedModule } from './shared/shared.module';
 import { LayoutModule } from './layout/layout.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ProductModule } from './product/product.module';
+import { CartModule } from './cart/cart.module';
 import { Router } from '@angular/router';
 
 
@@ -20,7 +21,8 @@ import { Router } from '@angular/router';
   ],
   imports: [
     ProductModule,
-    OrderModule,
+    CartModule,
+    // OrderModule,
     BrowserModule,
     BrowserAnimationsModule,
     SharedModule,
