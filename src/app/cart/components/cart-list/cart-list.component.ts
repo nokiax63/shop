@@ -64,7 +64,7 @@ export class CartListComponent implements OnInit, OnDestroy  {
   }
 
   onIncreaseQuantity(productInCart: ProductInCart): void {
-    this.cartService.addProduct(productInCart.product);
+    this.cartService.increaseProductQuantity(productInCart);
   }
 
   onDecreaseQuantity(productInCart: ProductInCart): void {

@@ -16,14 +16,27 @@ export class CartService {
   }
 
   addProduct(product: Product): void {
-    const productInCart = this.cartProducts.find(x => x.product.id === product.id);
+    const productInCart = this.cartProducts.find(x => x.productId === product.id);
     if (productInCart) {
       productInCart.quantity += 1;
     }
     else {
-      this.cartProducts.push(new ProductInCart(product, 1));
+      const newProductInCart = new ProductInCart(this.cartProducts.length + 1,
+        product.id,
+        product.name,
+        product.description,
+        product.price,
+        product.isAvailable,
+        product.category,
+        product.color,
+        1);
+      this.cartProducts.push(newProductInCart);
     }
     this.updateCartData();
+  }
+
+  increaseProductQuantity(productInCart: ProductInCart): void {
+    productInCart.quantity += 1;
   }
 
   substractProductFromCart(productInCart: ProductInCart): void {
@@ -70,7 +83,7 @@ export class CartService {
   private setTotalSum(): void {
     let sum = 0;
     this.cartProducts.forEach(x => {
-      sum += x.quantity * x.product.price;
+      sum += x.quantity * x.price;
       return x;
     });
     this.totalSum = sum;
