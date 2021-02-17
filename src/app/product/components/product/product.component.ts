@@ -10,7 +10,7 @@ import { Product } from '../../models/product';
 export class ProductComponent implements OnInit {
 
   @Input() product: Product = new Product();
-  @Output() buyProduct: EventEmitter<Product> = new EventEmitter<Product>();
+  @Output() viewProduct: EventEmitter<Product> = new EventEmitter<Product>();
   @Output() editProduct: EventEmitter<Product> = new EventEmitter<Product>();
 
   constructor() { }
@@ -18,8 +18,8 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onBuy(): void {
-    this.buyProduct.emit(this.product);
+  onDetails(): void {
+    this.viewProduct.emit(this.product);
   }
 
   onEdit(): void {

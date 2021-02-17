@@ -9,7 +9,7 @@ export class ProductInCart {
         public price = 0,
         public isAvailable = false,
         public category: ProductCategory = ProductCategory.Phone,
-        public color: ProductColor[] = [],
+        public color: ProductColor = ProductColor.Red,
         public quantity = 0,
     ) {
     }

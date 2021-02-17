@@ -29,6 +29,11 @@ export class ProductListComponent implements OnInit {
 
   }
 
+  onViewProduct(product: any): void {
+    const link = ['/details', product.id];
+    this.router.navigate(link);
+  }
+
   onBuyProduct(product: any): void {
     this.communicationService.publishData(product);
   }

@@ -1,0 +1,27 @@
+<div class="panel panel-default">
+    <div class="panel-heading">{{product.name}}</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <ul>
+                    <li>Description: {{product.description}}</li>
+                    <li>Price: {{product.price}}</li>
+                    <li>Category: {{product.category}}</li>
+                    <li>Available: {{product.isAvailable}}</li>
+                    <li>Category: {{product.category}}</li>
+                </ul>
+                <label for="color">Select color: </label>
+                <select (change)="onChange($event.target)" id="color" [ngStyle]="{'background-color':selectedColor}">
+                    <option *ngFor="let color of product.colors" [value]="color" [ngStyle]="{'background-color':color}">
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary btn-sm" [disabled]="!product.isAvailable" (click)="onBuy()">Buy
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

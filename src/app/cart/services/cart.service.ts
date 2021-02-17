@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Product } from 'src/app/product/models/product';
+import { Product, ProductColor } from 'src/app/product/models/product';
 import { ProductInCart } from '../models/product-in-cart';
 
 @Injectable()
@@ -28,7 +28,7 @@ export class CartService {
         product.price,
         product.isAvailable,
         product.category,
-        product.color,
+        ProductColor.Red,
         1);
       this.cartProducts.push(newProductInCart);
     }

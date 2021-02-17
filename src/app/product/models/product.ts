@@ -6,7 +6,7 @@ export enum ProductCategory {
 export enum ProductColor {
     Red = 'Red',
     Black = 'Black',
-    White = 'White'
+    White = 'Green'
 }
 
 export class Product {
@@ -17,7 +17,7 @@ export class Product {
         public price = 0,
         public isAvailable = false,
         public category: ProductCategory = ProductCategory.Phone,
-        public color: ProductColor[] = []
+        public colors: ProductColor[] = []
     ) {
     }
 }
