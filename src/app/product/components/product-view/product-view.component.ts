@@ -3,6 +3,7 @@ import { Product, ProductColor } from './../../models/product';
 import { ProductService } from './../../services/product.service';
 import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { CartService } from 'src/app/cart/services/cart.service';
 @Component({
   selector: 'app-product-view',
   templateUrl: './product-view.component.html',
@@ -14,6 +15,7 @@ export class ProductViewComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
+    private cartService: CartService,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -34,6 +36,6 @@ export class ProductViewComponent implements OnInit {
   }
 
   onBuy(): void {
-
+    this.cartService.addProduct(this.product, this.selectedColor);
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Product, ProductColor } from 'src/app/product/models/product';
+import { Product, ProductCategory, ProductColor } from 'src/app/product/models/product';
 import { ProductInCart } from '../models/product-in-cart';
+
 
 @Injectable()
 export class CartService {
@@ -9,14 +10,22 @@ export class CartService {
   totalQuantity = 0;
   private cartProducts: Array<ProductInCart> = [];
 
-  constructor() { }
+  constructor() {
+  }
+
+  setProductsFromStorage() {
+    this.cartProducts = this.getProductsFromStorage();
+    this.updateCartData();
+  }
 
   getProducts(): Array<ProductInCart> {
     return this.cartProducts;
   }
 
-  addProduct(product: Product): void {
-    const productInCart = this.cartProducts.find(x => x.productId === product.id);
+  addProduct(product: Product, selectedColor: string): void {
+
+    const productsInCart = this.getProductsFromStorage();
+    const productInCart = productsInCart.find(x => x.productId === product.id && x.color.toString() === selectedColor);
     if (productInCart) {
       productInCart.quantity += 1;
     }
@@ -30,13 +39,15 @@ export class CartService {
         product.category,
         ProductColor.Red,
         1);
-      this.cartProducts.push(newProductInCart);
+      productsInCart.push(newProductInCart);
     }
-    this.updateCartData();
+    this.setProductsInStorage(productsInCart);
   }
 
   increaseProductQuantity(productInCart: ProductInCart): void {
     productInCart.quantity += 1;
+    this.setProductsInStorage(this.cartProducts);
+    this.updateCartData();
   }
 
   substractProductFromCart(productInCart: ProductInCart): void {
@@ -48,11 +59,13 @@ export class CartService {
     else {
       productFromCart.quantity -= 1;
     }
+    this.setProductsInStorage(this.cartProducts);
     this.updateCartData();
   }
 
   removeAllProducts(): Array<ProductInCart> {
     this.cartProducts = [];
+    this.setProductsInStorage([]);
     this.updateCartData();
     return this.cartProducts;
   }
@@ -60,6 +73,7 @@ export class CartService {
   removeProduct(productInCart: ProductInCart): void {
     const index = this.cartProducts.indexOf(productInCart);
     this.cartProducts.splice(index, 1);
+    this.setProductsInStorage(this.cartProducts);
     this.updateCartData();
   }
 
@@ -73,7 +87,7 @@ export class CartService {
   }
 
   private setTotalQuantity(): void {
-    this.totalQuantity =  this.cartProducts
+    this.totalQuantity = this.getProductsFromStorage()
       .map(x => x.quantity)
       .reduce((a, b) => {
         return a + b;
@@ -82,10 +96,22 @@ export class CartService {
 
   private setTotalSum(): void {
     let sum = 0;
-    this.cartProducts.forEach(x => {
+    this.getProductsFromStorage().forEach(x => {
       sum += x.quantity * x.price;
       return x;
     });
     this.totalSum = sum;
+  }
+
+  private getProductsFromStorage(): Array<ProductInCart> {
+    const productsFromStorage = localStorage.getItem('productsInCart');
+    if (productsFromStorage) {
+      return JSON.parse(productsFromStorage) as Array<ProductInCart>;
+    }
+    return [];
+  }
+
+  private setProductsInStorage(productsInCart: Array<ProductInCart>): void {
+    localStorage.setItem('productsInCart', JSON.stringify(productsInCart));
   }
 }

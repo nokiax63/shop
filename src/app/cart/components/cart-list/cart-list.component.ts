@@ -49,10 +49,11 @@ export class CartListComponent implements OnInit, OnDestroy  {
     private cartService: CartService) { }
 
   ngOnInit(): void {
+    this.cartService.setProductsFromStorage();
     this.setSortProperty(this.sortProperties[0]);
-    this.sub = this.communicationService.channel$.subscribe(
-      data => this.cartService.addProduct(data)
-    );
+    // this.sub = this.communicationService.channel$.subscribe(
+    //   data => this.cartService.addProduct(data)
+    // );
   }
 
   onSortProperty(): void {
@@ -60,7 +61,7 @@ export class CartListComponent implements OnInit, OnDestroy  {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    // this.sub.unsubscribe();
   }
 
   onIncreaseQuantity(productInCart: ProductInCart): void {
