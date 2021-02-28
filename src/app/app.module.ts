@@ -11,8 +11,8 @@ import { LayoutModule } from './layout/layout.module';
 import { AppRoutingModule } from './app-routing.module';
 import { ProductModule } from './product/product.module';
 import { CartModule } from './cart/cart.module';
+import { AdminModule } from './admin/admin.module';
 import { Router } from '@angular/router';
-
 
 @NgModule({
   declarations: [
@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
   imports: [
     ProductModule,
     CartModule,
+    AdminModule,
     // OrderModule,
     BrowserModule,
     BrowserAnimationsModule,

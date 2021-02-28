@@ -26,7 +26,7 @@ export class ProductViewComponent implements OnInit {
       .subscribe(res => {
         if (res) {
           this.product = res;
-          this.selectedColor = this.product.colors.length > 0 ? this.product.colors[0] : ProductColor.Red
+          this.selectedColor = this.product.colors.length > 0 ? this.product.colors[0] : ProductColor.Red;
         }
       });
   }

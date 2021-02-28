@@ -13,7 +13,7 @@ export class CartService {
   constructor() {
   }
 
-  setProductsFromStorage() {
+  setProductsFromStorage(): void {
     this.cartProducts = this.getProductsFromStorage();
     this.updateCartData();
   }
