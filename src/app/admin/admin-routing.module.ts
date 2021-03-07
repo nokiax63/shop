@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
-import { ProductListComponent, ProductFormComponent, OrderListComponent } from './components';
+import { ProductListComponent, ProductFormComponent, ProductComponent, ProductViewComponent, OrderListComponent } from './components';
 import { AdminGuard } from './guards/admin.guard';
 import { CanDeactivateGuard } from './guards/can-deactivate.guard';
 import { EditResolver } from './guards/edit-resolver.guard';
@@ -31,6 +31,10 @@ const routes: Routes = [
                 component: ProductFormComponent
             },
             {
+                path: 'product-details/:Id',
+                component: ProductViewComponent
+            },
+            {
                 path: 'product-edit/:Id',
                 component: ProductFormComponent,
                 canDeactivate: [CanDeactivateGuard],
@@ -46,5 +50,5 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 export class AdminRoutingModule {
-    static components = [ProductListComponent, ProductFormComponent];
+    static components = [ProductListComponent, ProductFormComponent, ProductViewComponent, ProductComponent];
 }

@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+    <div class="panel-heading">{{product.name}}</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+                <ul>
+                    <li>Description: {{product.description}}</li>
+                    <li>Price: {{product.price}}</li>
+                    <li>Category: {{product.category}}</li>
+                    <li>Available: {{product.isAvailable}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary btn-sm" (click)="onClose()">Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
