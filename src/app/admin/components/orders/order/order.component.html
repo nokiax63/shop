@@ -1,0 +1,15 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading">Number № {{order.number}}</div>
+    <div class="panel-body">
+        <ul>
+            <li>Date: {{order.date | date: 'dd.MM.yyyy HH:mm'}}</li>
+            <li>Total sum: {{order.totalSum}}</li>
+            <li>Total quantity: {{order.totalQuantity}}</li>
+        </ul>
+        <button class="btn btn-primary btn-sm" 
+			(click)="onDetails()">
+			Details
+		</button>
+    </div>
+</div>

@@ -36,5 +36,30 @@
         "Red"
       ]
     }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "totalQuantity": 3,
+      "totalSum": 33400,
+      "date": "2021-03-07T15:54:03.527Z",
+      "number": "82299004-2636-4ba4-9a45-6d903cc367ae",
+      "products": [
+        {
+          "name": "Asus Vivobook",
+          "price": 21000,
+          "category": "Notebook",
+          "color": "Black",
+          "quantity": 1
+        },
+        {
+          "name": "Xiaomi 8",
+          "price": 6200,
+          "category": "Phone",
+          "color": "Black",
+          "quantity": 2
+        }
+      ]
+    }
   ]
 }

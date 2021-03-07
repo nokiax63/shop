@@ -4,10 +4,13 @@
             Your cart
         </h4>
     </div>
-    <div class="panel-body" *ngIf="productsInCart.length>0; else elseBlock">        
-        <select (change)="onSortProperty()" [(ngModel)]="sortProperty">
-            <option *ngFor="let sortProp of sortProperties" [ngValue]="sortProp">{{sortProp.name}}</option>            
-        </select>
+    <div class="panel-body" *ngIf="productsInCart.length>0; else elseBlock">
+        <div>
+            <select (change)="onSortProperty()" [(ngModel)]="sortProperty">
+                <option *ngFor="let sortProp of sortProperties" [ngValue]="sortProp">{{sortProp.name}}</option>            
+            </select>
+        </div>
+
         <button *ngIf="!isEmptyCart" class="btn btn-primary" (click)="onClear()">clear</button>
         <app-cart-item 
             *ngFor="let productInCart of productsInCart | orderBy:sortPropertyKey:sortPropertyIsAsc"
@@ -16,6 +19,9 @@
             (increaseQuantity)="onIncreaseQuantity($event)"
             (decreaseQuantity)="onDecreaseQuantity($event)">
         </app-cart-item>
+        <button class="btn btn-primary"
+		    (click)="onCreateOrder()">Create order</button>
+	    <br><br>
     </div>
     <ng-template #elseBlock>
         <div class="panel panel-default">

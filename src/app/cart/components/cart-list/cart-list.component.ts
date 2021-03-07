@@ -3,12 +3,14 @@ import { Subscription } from 'rxjs';
 import { CommunicationService } from '../../../order/services/communication.service';
 import { CartService } from '../../../cart/services/cart.service';
 import { ProductInCart } from '../../models/product-in-cart';
+import { OrderService } from '../../../order/services'
+import { Order, ProductInOrder } from 'src/app/order/models';
 
 export class SortModel {
   constructor(
-      public name: string = '',
-      public key: string = '',
-      public isAsc: boolean = false
+    public name: string = '',
+    public key: string = '',
+    public isAsc: boolean = false
   ) {
   }
 }
@@ -17,12 +19,12 @@ export class SortModel {
   templateUrl: './cart-list.component.html',
   styleUrls: ['./cart-list.component.css']
 })
-export class CartListComponent implements OnInit, OnDestroy  {
+export class CartListComponent implements OnInit, OnDestroy {
 
   private sub!: Subscription;
   sortProperties: Array<SortModel> = [
-    { name: 'По цене по убыванию ', key: 'price', isAsc: false},
-    { name: 'По цене по возрастанию', key: 'price', isAsc: true}
+    { name: 'По цене по убыванию ', key: 'price', isAsc: false },
+    { name: 'По цене по возрастанию', key: 'price', isAsc: true }
   ];
   sortProperty: SortModel | undefined;
   sortPropertyKey!: string;
@@ -45,6 +47,7 @@ export class CartListComponent implements OnInit, OnDestroy  {
   }
 
   constructor(
+    private orderService: OrderService,
     private communicationService: CommunicationService,
     private cartService: CartService) { }
 
@@ -80,10 +83,41 @@ export class CartListComponent implements OnInit, OnDestroy  {
     this.cartService.removeAllProducts();
   }
 
+  onCreateOrder(): void {
+    const order = this.getOrderModel();
+    this.orderService.createOrder(order);
+    const observer = {
+      next: (order: Order) => {
+        this.cartService.removeAllProducts();
+        alert("Order succesfully created");
+      },
+      error: (err: any) => console.log(err)
+    };
+    this.sub = this.orderService.createOrder(order).subscribe(observer);
 
+  }
+
+  private getOrderModel() {
+
+    const products: Array<ProductInOrder> = []
+    this.productsInCart.forEach(element => {
+      const productInOrder = new ProductInOrder(element.name, element.price, element.category, element.color, element.quantity);
+      products.push(productInOrder);
+    });
+    const order = new Order(0, this.cartService.totalQuantity, this.cartService.totalSum, new Date(), this.uuidv4(), products);
+
+    return order;
+  }
 
   private setSortProperty(value: any): void {
     this.sortPropertyIsAsc = value.isAsc;
     this.sortPropertyKey = value.key;
+  }
+
+  private uuidv4(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
   }
 }

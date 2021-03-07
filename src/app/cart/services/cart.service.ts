@@ -23,7 +23,7 @@ export class CartService {
   }
 
   addProduct(product: Product, selectedColor: string): void {
-
+    debugger
     const productsInCart = this.getProductsFromStorage();
     const productInCart = productsInCart.find(x => x.productId === product.id && x.color.toString() === selectedColor);
     if (productInCart) {
@@ -37,7 +37,7 @@ export class CartService {
         product.price,
         product.isAvailable,
         product.category,
-        ProductColor.Red,
+        selectedColor as ProductColor,
         1);
       productsInCart.push(newProductInCart);
     }

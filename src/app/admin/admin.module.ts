@@ -6,12 +6,14 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { OrderListComponent } from './components/orders/order-list/order-list.component';
 import { ProductService } from '../product/services';
+import { OrderComponent } from './components/orders/order/order.component';
 
 @NgModule({
   declarations: [
     AdminRoutingModule.components,
     AdminComponent,
-    OrderListComponent
+    OrderListComponent,
+    OrderComponent
   ],
   imports: [
     CommonModule,

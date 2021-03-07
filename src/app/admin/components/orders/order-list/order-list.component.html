@@ -1,1 +1,5 @@
-<p>order-list works!</p>
+<app-order 
+    *ngFor="let order of orders | async" 
+    [order]="order" 
+    (viewOrder)="onViewOrder($event)">
+</app-order>

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Order } from 'src/app/order/models';
+import { OrderService } from 'src/app/order/services';
 
 @Component({
   selector: 'app-order-list',
@@ -6,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent implements OnInit {
+  orders!: Observable<Array<Order>>;
 
-  constructor() { }
+  constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
+    this.orders = this.orderService.getOrders();
   }
 
+  onViewOrder(order: any): void {
+
+  }
 }
