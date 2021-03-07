@@ -1,0 +1,23 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading">{{product.name}}</div>
+    <div class="panel-body">
+        <ul>
+            <li>Description: {{product.description}}</li>
+            <li>Price: {{product.price}}</li>
+            <li>Category: {{product.category}}</li>
+        </ul>
+        <button class="btn btn-primary btn-sm" 
+			(click)="onDetails()">
+			Details
+		</button>
+        <button class="btn btn-warning btn-sm"
+			(click)="onEdit()">
+			Edit
+		</button>
+        <button class="btn btn-danger btn-sm"
+			(click)="onDelete()">
+			Delete
+		</button>
+    </div>
+</div>

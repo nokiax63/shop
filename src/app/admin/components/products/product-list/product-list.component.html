@@ -1,1 +1,11 @@
-<p>product-list works!</p>
+<div>
+    <button class="btn btn-primary"
+		(click)="onCreateProduct()">New product</button>
+	<br><br>
+    <app-product *ngFor="let product of products | async" 
+        [product]="product" 
+        (editProduct)="onEditProduct($event)"
+        (viewProduct)="onViewProduct($event)"
+        (deleteProduct)="onDeleteProduct($event)">
+    </app-product>
+</div>

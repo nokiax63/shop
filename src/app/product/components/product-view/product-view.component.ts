@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product, ProductColor } from './../../models/product';
-import { ProductService } from './../../services/product.service';
+import { ProductPromiseService } from './../../services';
 import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { CartService } from 'src/app/cart/services/cart.service';
@@ -14,7 +14,7 @@ export class ProductViewComponent implements OnInit {
   selectedColor!: ProductColor;
 
   constructor(
-    private productService: ProductService,
+    private productPromiseService: ProductPromiseService,
     private cartService: CartService,
     private route: ActivatedRoute) { }
 
@@ -22,7 +22,7 @@ export class ProductViewComponent implements OnInit {
     this.product = new Product();
     this.route.paramMap
       .pipe(
-        switchMap((params: ParamMap) => this.productService.getProduct(Number(params.get('productId')))))
+        switchMap((params: ParamMap) => this.productPromiseService.getProduct(Number(params.get('productId')))))
       .subscribe(res => {
         if (res) {
           this.product = res;

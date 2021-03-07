@@ -2,20 +2,20 @@
 
 import { Injectable } from '@angular/core';
 import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { Product } from '../models/product';
-import { ProductService } from '../services/product.service';
+import { from, Observable, of } from 'rxjs';
+import { Product } from 'src/app/product/models/product';
+import { ProductPromiseService } from 'src/app/product/services';
 
 @Injectable({
     providedIn: 'root'
 })
 export class EditResolver implements Resolve<Product> {
 
-    constructor(private productService: ProductService) { }
+    constructor(private productPromiseService: ProductPromiseService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Product> {
         const id = route.paramMap.get('Id') || -1;
-        const result = this.productService.getProduct(+id);
-        return result;
+        const result = this.productPromiseService.getProduct(+id);
+        return from(result);
     }
 }

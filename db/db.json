@@ -1,0 +1,40 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Xiaomi 8",
+      "description": "Xiaomi is chinese ph",
+      "price": 6200,
+      "isAvailable": true,
+      "category": "Phone",
+      "colors": [
+        "Black",
+        "White"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Iphone 11",
+      "description": "phone is apple phone",
+      "price": 28000,
+      "isAvailable": false,
+      "category": "Phone",
+      "colors": [
+        "Red",
+        "White"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Asus Vivobook",
+      "description": "Asus Vivobook desc",
+      "price": 21000,
+      "isAvailable": true,
+      "category": "Notebook",
+      "colors": [
+        "Black",
+        "Red"
+      ]
+    }
+  ]
+}

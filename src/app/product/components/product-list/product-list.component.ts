@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product';
-import { ProductService } from '../../services/product.service';
+import { ProductPromiseService } from '../../services';
 import { CommunicationService } from '../../../order/services/communication.service';
 import { Router } from '@angular/router';
 @Component({
@@ -15,12 +15,12 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private productsService: ProductService,
+    private productsPromiseService: ProductPromiseService,
     private communicationService: CommunicationService) {
   }
 
   ngOnInit(): void {
-    this.products = this.productsService.getProducts();
+    this.products = this.productsPromiseService.getProducts();
   }
 
   onEditProduct(product: any): void {

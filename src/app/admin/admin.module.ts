@@ -5,13 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { OrderListComponent } from './components/orders/order-list/order-list.component';
-import { ProductService } from './services/product.service';
+import { ProductService } from '../product/services';
+import { ProductComponent } from './components/products/product/product.component';
 
 @NgModule({
   declarations: [
     AdminRoutingModule.components,
     AdminComponent,
-    OrderListComponent
+    OrderListComponent,
+    ProductComponent
   ],
   imports: [
     CommonModule,

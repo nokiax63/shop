@@ -27,6 +27,10 @@ const routes: Routes = [
                 component: ProductListComponent
             },
             {
+                path: 'product-add',
+                component: ProductFormComponent
+            },
+            {
                 path: 'product-edit/:Id',
                 component: ProductFormComponent,
                 canDeactivate: [CanDeactivateGuard],

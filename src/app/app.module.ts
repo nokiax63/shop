@@ -13,6 +13,8 @@ import { ProductModule } from './product/product.module';
 import { CartModule } from './cart/cart.module';
 import { AdminModule } from './admin/admin.module';
 import { Router } from '@angular/router';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TimingInterceptor } from './core/interceptors/timing.interceptor';
 
 @NgModule({
   declarations: [
@@ -28,12 +30,18 @@ import { Router } from '@angular/router';
     BrowserAnimationsModule,
     SharedModule,
     LayoutModule,
-
+    HttpClientModule,
 
     // must be the last
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TimingInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

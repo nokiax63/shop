@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ProductRoutingModule } from './product-routing.module';
-import { ProductService } from './services/product.service';
+import { ProductService, ProductPromiseService } from './services';
 import { ProductComponent, ProductListComponent, ProductFormComponent, ProductViewComponent } from './components';
 import { FormsModule } from '@angular/forms';
 
@@ -19,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   providers: [
-    ProductService
+    ProductService,
+    ProductPromiseService
   ]
 })
 export class ProductModule { }

@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class AuthService {
 
   isAdminRole(): boolean {
-    return Math.random() < 0.5;
+    return true;
+    // return Math.random() < 0.5;
   }
 }
