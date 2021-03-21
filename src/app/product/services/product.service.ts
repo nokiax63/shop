@@ -24,20 +24,20 @@ export class ProductService {
       .catch(() => Promise.reject('Error in getProduct method'));
   }
 
-  createProduct(task: Product): void {
-    products.push(task);
+  createProduct(product: Product): void {
+    products.push(product);
   }
 
-  updateProduct(task: Product): void {
-    const i = products.findIndex(x => x.id === task.id);
+  updateProduct(product: Product): void {
+    const i = products.findIndex(x => x.id === product.id);
 
     if (i > -1) {
-      products.splice(i, 1, task);
+      products.splice(i, 1, product);
     }
   }
 
-  deleteProduct(task: Product): void {
-    const i = products.findIndex(p => p.id === task.id);
+  deleteProduct(product: Product): void {
+    const i = products.findIndex(p => p.id === product.id);
 
     if (i > -1) {
       products.splice(i, 1);

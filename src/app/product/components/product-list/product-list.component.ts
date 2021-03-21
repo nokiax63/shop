@@ -1,8 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../models/product';
-import { ProductPromiseService } from '../../services';
+import { IProduct, Product } from '../../models/product';
+import * as ProductActions from '../../../core/@ngrx/product/product.action'
 import { CommunicationService } from '../../../order/services/communication.service';
 import { Router } from '@angular/router';
+
+// @Ngrx
+import { Store } from '@ngrx/store';
+import { AppState, } from './../../../core/@ngrx/app.state'
+
+// rxjs
+import { Observable } from 'rxjs';
+import { ProductsState } from 'src/app/core/@ngrx';
+
+
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -10,17 +20,19 @@ import { Router } from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
 
-  products!: Promise<Array<Product>>;
+  productState$!: Observable<ProductsState>;
   productsInCart: Product[] = [];
 
   constructor(
+    private store: Store<AppState>,
     private router: Router,
-    private productsPromiseService: ProductPromiseService,
     private communicationService: CommunicationService) {
   }
 
   ngOnInit(): void {
-    this.products = this.productsPromiseService.getProducts();
+    console.log('We have a store! ', this.store);
+    this.productState$ = this.store.select('products');
+    this.store.dispatch(ProductActions.getProducts());
   }
 
   onEditProduct(product: any): void {

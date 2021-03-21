@@ -31,12 +31,12 @@ export class ProductFormComponent implements OnInit {
   }
 
   onSaveProduct(): void {
-    const task = { ...this.product } as Product;
+    const product = { ...this.product } as Product;
 
-    if (task.id) {
-      this.productService.updateProduct(task);
+    if (product.id) {
+      this.productService.updateProduct(product);
     } else {
-      this.productService.createProduct(task);
+      this.productService.createProduct(product);
     }
     this.closePage();
   }

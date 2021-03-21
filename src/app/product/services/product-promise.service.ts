@@ -27,9 +27,9 @@ export class ProductPromiseService {
       .catch(this.handleError);
   }
 
-  createProduct(task: Product): Promise<Product> {
+  createProduct(product: Product): Promise<Product> {
     const url = this.productUrl;
-    const body = JSON.stringify(task);
+    const body = JSON.stringify(product);
     const options = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
@@ -41,9 +41,9 @@ export class ProductPromiseService {
       .catch(this.handleError);
   }
 
-  updateProduct(task: Product): Promise<Product> {
-    const url = `${this.productUrl}/${task.id}`;
-    const body = JSON.stringify(task);
+  updateProduct(product: Product): Promise<Product> {
+    const url = `${this.productUrl}/${product.id}`;
+    const body = JSON.stringify(product);
     const options = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };

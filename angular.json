@@ -128,6 +128,7 @@
   },
   "defaultProject": "shop",
   "cli": {
-    "analytics": "c305f336-db28-46a3-bb82-3f67912d586f"
+    "analytics": "c305f336-db28-46a3-bb82-3f67912d586f",
+    "defaultCollection": "@ngrx/schematics"
   }
 }

@@ -9,7 +9,17 @@ export enum ProductColor {
     White = 'Green'
 }
 
-export class Product {
+export interface IProduct {
+    id: number,
+    name: string,
+    description: string,
+    price: number,
+    isAvailable: boolean,
+    category: ProductCategory,
+    colors: ProductColor[]
+}
+
+export class Product implements IProduct {
     constructor(
         public id: number = 0,
         public name: string = '',

@@ -15,6 +15,7 @@ import { AdminModule } from './admin/admin.module';
 import { Router } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TimingInterceptor } from './core/interceptors/timing.interceptor';
+import { RootStoreModule } from './core/@ngrx/root-store.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,9 @@ import { TimingInterceptor } from './core/interceptors/timing.interceptor';
     SharedModule,
     LayoutModule,
     HttpClientModule,
+
+    //Store
+    RootStoreModule,
 
     // must be the last
     AppRoutingModule,
