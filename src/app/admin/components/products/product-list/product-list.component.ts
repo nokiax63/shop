@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Product } from 'src/app/product/models/product';
+import { IProduct, Product } from 'src/app/product/models/product';
 
 // @Ngrx
 import { Store } from '@ngrx/store';
@@ -45,9 +45,7 @@ export class ProductListComponent implements OnInit {
   }
 
   onDeleteProduct(product: any) :void {
-    // this.productsPromiseService.deleteProduct(product)
-    //   .then(() => (this.products = this.productsPromiseService.getProducts()))
-    //   .catch(err => console.log(err));
-
+    const productToDelete: IProduct = { ...product };
+    this.store.dispatch(ProductActions.deleteProduct({ product: productToDelete }));
   }
 }

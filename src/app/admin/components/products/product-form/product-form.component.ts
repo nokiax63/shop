@@ -1,64 +1,85 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
-import { ProductPromiseService } from 'src/app/product';
-import { Product, ProductCategory } from 'src/app/product/models/product';
+import { IProduct, Product, ProductCategory } from 'src/app/product/models/product';
+
+// rxjs
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+//NgRX
+import { AppState, ProductsState } from 'src/app/core/@ngrx';
+import { Store } from '@ngrx/store';
+import * as ProductActions from './../../../../core/@ngrx/product/product.action';
+
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.css']
 })
-export class ProductFormComponent implements OnInit {
+export class ProductFormComponent implements OnInit, OnDestroy {
 
   product!: Product;
   isDirty = true;
   categories: Array<ProductCategory> = [ProductCategory.Phone, ProductCategory.Notebook];
+  private componentDestroyed$: Subject<void> = new Subject<void>();
 
   constructor(
-    private productPromiseService: ProductPromiseService,
+    private store: Store<AppState>,
     private router: Router,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.product = new Product();
-
-    this.route.paramMap
-      .pipe(
-
-        switchMap((params: ParamMap) => {
-          return params.get('Id')
-            ? this.productPromiseService.getProduct(Number(params.get('Id')))
-            : Promise.resolve(null);
-        }))
-      .subscribe(res => {
-        if (res) {
-          this.product = res;
+    let observer: any = {
+      next: (productState: ProductsState) => {
+        this.product = { ...productState.selectedProduct } as Product;
+        if (productState.selectedProduct) {
+          this.product = {...productState.selectedProduct} as Product;
+        } else {
+          this.product = new Product();
         }
-      });
+      },
+      error(err: any) {
+        console.log(err);
+      },
+      complete() {
+        console.log('Stream is completed');
+      }
+    };
+
+    this.store.select('products')
+      .pipe(
+        takeUntil(this.componentDestroyed$)
+      )
+      .subscribe(observer);
+
+    observer = {
+      ...observer,
+      next: (params: ParamMap) => {
+        const id = Number(params.get('productId'));
+        if (id) {
+          this.store.dispatch(ProductActions.getProduct({ productId: +id }));
+        }
+      }
+    };
+
+    this.route.paramMap.subscribe(observer);
+  }
+  
+  ngOnDestroy(): void {
+    this.componentDestroyed$.next();
+    this.componentDestroyed$.complete();
   }
 
   onSaveProduct(): void {
     this.isDirty = false;
-    const product = { ...this.product } as Product;
-    const method = product.id ? this.updateProduct(): this.createProduct()
+    const product = { ...this.product } as IProduct;
+    if (product.id) {
+      this.store.dispatch(ProductActions.updateProduct({product}));
+    }
+    else {
+      this.store.dispatch(ProductActions.createProduct({product}));
+    }
     this.closePage();
-  }
-
-  createProduct(): void {
-    const product = { ...this.product } as Product;
-
-
-    this.productPromiseService.createProduct(product)
-      .then(() => this.onGoBack())
-      .catch(err => console.log(err));
-  }
-
-  updateProduct(): void {    
-    const product = { ...this.product } as Product;
-
-    this.productPromiseService.updateProduct(product)
-    .then(() => this.onGoBack())
-    .catch(err => console.log(err));
   }
 
   closePage(): void {

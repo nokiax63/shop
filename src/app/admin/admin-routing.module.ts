@@ -35,7 +35,7 @@ const routes: Routes = [
                 component: ProductViewComponent
             },
             {
-                path: 'product-edit/:Id',
+                path: 'product-edit/:productId',
                 component: ProductFormComponent,
                 canDeactivate: [CanDeactivateGuard],
                 resolve: { resolvedData: EditResolver }
