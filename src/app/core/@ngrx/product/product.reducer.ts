@@ -14,7 +14,7 @@ export const reducer = createReducer(
     };
   }),
 
-  on(ProductActions.getProductsSuccess, (state, {products}) => {
+  on(ProductActions.getProductsSuccess, (state, { products }) => {
 
     const data = [...products];
     return {
@@ -25,15 +25,35 @@ export const reducer = createReducer(
     };
   }),
 
-  on(ProductActions.getProductsError, (state, {error}) => {
+  on(ProductActions.getProduct, state => {
+    return {
+      ...state,
+      loading: true,
+      loaded: false
+    };
+  }),
+
+  on(ProductActions.getProductSuccess, (state, { product }) => {
+    const selectedProduct = { ...product };
+    return {
+      ...state,
+      loading: false,
+      loaded: true,
+      selectedProduct
+    };
+  }),
+
+  on(
+    ProductActions.getProductsError, 
+    ProductActions.getProductError,
+    (state, { error }) => {
     return {
       ...state,
       loading: false,
       loaded: true,
       error
     };
-  }),
-
+  })
 
 );
 

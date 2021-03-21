@@ -23,7 +23,6 @@ export class CartService {
   }
 
   addProduct(product: Product, selectedColor: string): void {
-    debugger
     const productsInCart = this.getProductsFromStorage();
     const productInCart = productsInCart.find(x => x.productId === product.id && x.color.toString() === selectedColor);
     if (productInCart) {

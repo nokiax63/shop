@@ -5,7 +5,7 @@ import * as ProductActions from './product.action'
 
 // rxjs
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { pluck, switchMap } from 'rxjs/operators';
 
 import { ProductPromiseService } from 'src/app/product';
 
@@ -29,4 +29,16 @@ export class ProductEffects {
       )
     )
   );
+
+  getProduct$: Observable<Action> =createEffect(()=> 
+    this.actions$.pipe(
+      ofType(ProductActions.getProduct),
+      pluck('productId'),
+      switchMap(productId=> 
+        this.productPromiseService.getProduct(productId)
+          .then(product => ProductActions.getProductSuccess({product}))
+          .catch(error => ProductActions.getProductError({error}))
+      )
+    )
+  )
 }

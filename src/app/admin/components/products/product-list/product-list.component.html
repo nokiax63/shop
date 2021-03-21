@@ -2,7 +2,8 @@
     <button class="btn btn-primary"
 		(click)="onCreateProduct()">New product</button>
 	<br><br>
-    <app-product *ngFor="let product of products | async" 
+    <p *ngIf="(productState$ | async)?.error as value">{{value}}</p>
+    <app-product *ngFor='let product of (productState$ | async)?.data'
         [product]="product" 
         (editProduct)="onEditProduct($event)"
         (viewProduct)="onViewProduct($event)"

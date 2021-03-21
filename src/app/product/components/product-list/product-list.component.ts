@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { IProduct, Product } from '../../models/product';
-import * as ProductActions from '../../../core/@ngrx/product/product.action'
+import { Product } from '../../models/product';
 import { CommunicationService } from '../../../order/services/communication.service';
 import { Router } from '@angular/router';
 
 // @Ngrx
 import { Store } from '@ngrx/store';
 import { AppState, } from './../../../core/@ngrx/app.state'
+import * as ProductActions from '../../../core/@ngrx/product/product.action'
 
 // rxjs
 import { Observable } from 'rxjs';

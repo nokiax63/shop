@@ -1,23 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/product/models/product';
-import { ProductPromiseService } from 'src/app/product/services';
 
+// @Ngrx
+import { Store } from '@ngrx/store';
+import { AppState, } from './../../../../core/@ngrx/app.state'
+import * as ProductActions from '../../../../core/@ngrx/product/product.action'
+// rxjs
+import { Observable } from 'rxjs';
+import { ProductsState } from 'src/app/core/@ngrx';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit {
-  products!: Promise<Array<Product>>;
+export class ProductListComponent implements OnInit {  
+  productState$!: Observable<ProductsState>;
 
   constructor(
-    private router: Router,
-    private productsPromiseService: ProductPromiseService
+    private store: Store<AppState>,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.products = this.productsPromiseService.getProducts();
+    this.productState$ = this.store.select('products');
+    this.store.dispatch(ProductActions.getProducts());
   }
 
   onCreateProduct(): void {
@@ -38,9 +45,9 @@ export class ProductListComponent implements OnInit {
   }
 
   onDeleteProduct(product: any) :void {
-    this.productsPromiseService.deleteProduct(product)
-      .then(() => (this.products = this.productsPromiseService.getProducts()))
-      .catch(err => console.log(err));
+    // this.productsPromiseService.deleteProduct(product)
+    //   .then(() => (this.products = this.productsPromiseService.getProducts()))
+    //   .catch(err => console.log(err));
 
   }
 }

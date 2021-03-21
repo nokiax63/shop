@@ -31,7 +31,7 @@ const routes: Routes = [
                 component: ProductFormComponent
             },
             {
-                path: 'product-details/:Id',
+                path: 'product-details/:productId',
                 component: ProductViewComponent
             },
             {
