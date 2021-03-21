@@ -10,8 +10,8 @@ export interface ProductsState {
 
 export const initialProductsState: ProductsState = {
     data: [],
+    selectedProduct: null,
     loading: false,
     loaded: false,
-    error: '',
-    selectedProduct: null
+    error: ''
 };

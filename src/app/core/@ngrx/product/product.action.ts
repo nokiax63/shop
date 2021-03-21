@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IProduct, Product } from 'src/app/product/models/product';
+import { IProduct } from 'src/app/product/models/product';
 
 
 export const getProducts = createAction('[Product List Page (App)] GET_PRODUCTS');

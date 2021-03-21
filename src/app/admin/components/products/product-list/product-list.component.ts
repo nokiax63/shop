@@ -1,29 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IProduct, Product } from 'src/app/product/models/product';
+import { IProduct } from 'src/app/product/models/product';
 
 // @Ngrx
 import { Store } from '@ngrx/store';
-import { AppState, } from './../../../../core/@ngrx/app.state'
 import * as ProductActions from '../../../../core/@ngrx/product/product.action'
 // rxjs
 import { Observable } from 'rxjs';
-import { ProductsState } from 'src/app/core/@ngrx';
+import { selectProductsData, selectProductsError } from 'src/app/core/@ngrx';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit {  
-  productState$!: Observable<ProductsState>;
+export class ProductListComponent implements OnInit { 
+  proudcts$!: Observable<ReadonlyArray<IProduct>>;
+  productsError$!: Observable<Error | string>;
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.productState$ = this.store.select('products');
+    this.proudcts$ = this.store.select(selectProductsData);
+    this.productsError$ = this.store.select(selectProductsError);
     this.store.dispatch(ProductActions.getProducts());
   }
 

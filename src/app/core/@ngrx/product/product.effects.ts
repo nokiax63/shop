@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { concatMap, pluck, switchMap } from 'rxjs/operators';
 
 import { ProductPromiseService } from 'src/app/product';
-import { IProduct, Product } from 'src/app/product/models/product';
+import { IProduct } from 'src/app/product/models/product';
 
 // router
 import { Router } from '@angular/router';
@@ -51,7 +51,7 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(ProductActions.updateProduct),
       pluck('product'),
-      concatMap((product: Product) =>
+      concatMap((product: IProduct) =>
         this.productPromiseService.updateProduct(product)
           .then((updatedProduct: IProduct) => {
             this.router.navigate(['/admin/product-list']);
@@ -66,7 +66,7 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(ProductActions.createProduct),
       pluck('product'),
-      concatMap((product: Product) =>
+      concatMap((product: IProduct) =>
         this.productPromiseService.createProduct(product)
           .then((createdProduct: IProduct) => {
             this.router.navigate(['/admin/product-list']);
@@ -81,7 +81,7 @@ export class ProductEffects {
     this.actions$.pipe(
       ofType(ProductActions.deleteProduct),
       pluck('product'),
-      concatMap((product: Product) =>
+      concatMap((product: IProduct) =>
         this.productPromiseService.deleteProduct(product)
           .then(() => {
             return ProductActions.deleteProductSuccess({ product });
