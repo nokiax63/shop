@@ -21,26 +21,7 @@ export const reducer = createReducer(
       ...state,
       data,
       loading: false,
-      loaded: true,      
-      selectedTask: null
-    };
-  }),
-
-  on(ProductActions.getProduct, state => {
-    return {
-      ...state,
-      loading: true,
-      loaded: false
-    };
-  }),
-
-  on(ProductActions.getProductSuccess, (state, { product }) => {
-    const selectedProduct = { ...product };
-    return {
-      ...state,
-      loading: false,
-      loaded: true,
-      selectedProduct
+      loaded: true
     };
   }),
 
@@ -55,7 +36,6 @@ export const reducer = createReducer(
 
   on(
     ProductActions.getProductsError,
-    ProductActions.getProductError,
     ProductActions.deleteProductError,
     (state, { error }) => {
       return {

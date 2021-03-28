@@ -14,7 +14,7 @@ import { selectProductsData, selectProductsError } from 'src/app/core/@ngrx';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit { 
-  proudcts$!: Observable<ReadonlyArray<IProduct>>;
+  products$!: Observable<ReadonlyArray<IProduct>>;
   productsError$!: Observable<Error | string>;
 
   constructor(
@@ -23,9 +23,8 @@ export class ProductListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.proudcts$ = this.store.select(selectProductsData);
+    this.products$ = this.store.select(selectProductsData);
     this.productsError$ = this.store.select(selectProductsError);
-    this.store.dispatch(ProductActions.getProducts());
   }
 
   onCreateProduct(): void {

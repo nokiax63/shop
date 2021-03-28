@@ -7,7 +7,7 @@ import * as ProductActions from './product.action'
 import { Observable } from 'rxjs';
 import { concatMap, pluck, switchMap } from 'rxjs/operators';
 
-import { ProductPromiseService } from 'src/app/product';
+import { ProductPromiseService } from 'src/app/product/services';
 import { IProduct } from 'src/app/product/models/product';
 
 // router
@@ -35,17 +35,17 @@ export class ProductEffects {
     )
   );
 
-  getProduct$: Observable<Action> = createEffect(() =>
-    this.actions$.pipe(
-      ofType(ProductActions.getProduct),
-      pluck('productId'),
-      switchMap(productId =>
-        this.productPromiseService.getProduct(productId)
-          .then(product => ProductActions.getProductSuccess({ product }))
-          .catch(error => ProductActions.getProductError({ error }))
-      )
-    )
-  );
+  // getProduct$: Observable<Action> = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(ProductActions.getProduct),
+  //     pluck('productId'),
+  //     switchMap(productId =>
+  //       this.productPromiseService.getProduct(productId)
+  //         .then(product => ProductActions.getProductSuccess({ product }))
+  //         .catch(error => ProductActions.getProductError({ error }))
+  //     )
+  //   )
+  // );
 
   updateProduct$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(

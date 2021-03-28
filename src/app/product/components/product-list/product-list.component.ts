@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../models/product';
+import { IProduct } from '../../models/product';
 import { CommunicationService } from '../../../order/services/communication.service';
 import { Router } from '@angular/router';
 
 // @Ngrx
 import { Store } from '@ngrx/store';
-import { AppState, } from './../../../core/@ngrx/app.state'
 import * as ProductActions from '../../../core/@ngrx/product/product.action'
 
 // rxjs
 import { Observable } from 'rxjs';
-import { ProductsState } from 'src/app/core/@ngrx';
+import { selectProductsData, selectProductsError } from 'src/app/core/@ngrx';
 
 
 @Component({
@@ -20,19 +19,18 @@ import { ProductsState } from 'src/app/core/@ngrx';
 })
 export class ProductListComponent implements OnInit {
 
-  productState$!: Observable<ProductsState>;
-  productsInCart: Product[] = [];
+  products$!: Observable<ReadonlyArray<IProduct>>;
+  productsError$!: Observable<Error | string>;
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store,
     private router: Router,
     private communicationService: CommunicationService) {
   }
 
   ngOnInit(): void {
-    console.log('We have a store! ', this.store);
-    this.productState$ = this.store.select('products');
-    this.store.dispatch(ProductActions.getProducts());
+    this.products$ = this.store.select(selectProductsData);
+    this.productsError$ = this.store.select(selectProductsError);
   }
 
   onEditProduct(product: any): void {

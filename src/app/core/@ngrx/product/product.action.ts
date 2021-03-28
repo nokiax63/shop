@@ -21,15 +21,15 @@ export const getProduct = createAction(
 );
 
 // Get Product Effect
-export const getProductSuccess = createAction(
-    '[Get Product Effect] GET_PRODUCT_SUCCESS',
-    props<{ product: IProduct }>()
-);
+// export const getProductSuccess = createAction(
+//     '[Get Product Effect] GET_PRODUCT_SUCCESS',
+//     props<{ product: IProduct }>()
+// );
 
-export const getProductError = createAction(
-    '[Get Product Effect] GET_PRODUCT_ERROR',
-    props<{ error: Error | string }>()
-);
+// export const getProductError = createAction(
+//     '[Get Product Effect] GET_PRODUCT_ERROR',
+//     props<{ error: Error | string }>()
+// );
 
 export const updateProduct = createAction(
     '[Product Form Page] UPDATE_PRODUCT',

@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProductListComponent, ProductFormComponent, ProductViewComponent } from './components';
+import { ProductsStatePreloadingGuard, ProductExistsGuard } from './guards';
 
 const routes: Routes = [
   {
     path: 'home',
-    component: ProductListComponent
+    component: ProductListComponent,
+    canActivate: [ProductsStatePreloadingGuard],
   },
   {
     path: 'details/:productId',
-    component: ProductViewComponent
+    component: ProductViewComponent,
+    canActivate: [ProductExistsGuard]
   },
   {
     path: 'edit/:productId',

@@ -1,5 +1,5 @@
-<p *ngIf="(productState$ | async)?.error as value">{{value}}</p>
-<app-product *ngFor='let product of (productState$ | async)?.data'
+<p *ngIf="(productsError$ | async) as value">{{value}}</p>
+<app-product *ngFor='let product of (products$ | async)'
     [product]="product" (editProduct)="onEditProduct($event)"
     (viewProduct)="onViewProduct($event)">
 </app-product>

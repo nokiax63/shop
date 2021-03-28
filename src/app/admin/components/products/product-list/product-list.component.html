@@ -3,7 +3,7 @@
 		(click)="onCreateProduct()">New product</button>
 	<br><br>
     <p *ngIf="(productsError$ | async) as value">{{value}}</p>
-    <app-product *ngFor='let product of (proudcts$ | async)'
+    <app-product *ngFor='let product of (products$ | async)'
         [product]="product" 
         (editProduct)="onEditProduct($event)"
         (viewProduct)="onViewProduct($event)"

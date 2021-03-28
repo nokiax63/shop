@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ParamMap, Router } from '@angular/router';
 import { IProduct, Product, ProductCategory } from 'src/app/product/models/product';
 
 // rxjs
@@ -7,10 +7,9 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 //NgRX
-import { AppState, ProductsState } from 'src/app/core/@ngrx';
+import { selectSelectedProductByUrl } from 'src/app/core/@ngrx';
 import { Store } from '@ngrx/store';
 import * as ProductActions from './../../../../core/@ngrx/product/product.action';
-
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
@@ -24,19 +23,14 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   private componentDestroyed$: Subject<void> = new Subject<void>();
 
   constructor(
-    private store: Store<AppState>,
-    private router: Router,
-    private route: ActivatedRoute) { }
+    private store: Store,
+    private router: Router) { }
 
   ngOnInit(): void {
     let observer: any = {
-      next: (productState: ProductsState) => {
-        this.product = { ...productState.selectedProduct } as Product;
-        if (productState.selectedProduct) {
-          this.product = {...productState.selectedProduct} as Product;
-        } else {
-          this.product = new Product();
-        }
+      next: (product: Product) => {
+        this.product = { ...product };
+        
       },
       error(err: any) {
         console.log(err);
@@ -46,23 +40,11 @@ export class ProductFormComponent implements OnInit, OnDestroy {
       }
     };
 
-    this.store.select('products')
+    this.store.select(selectSelectedProductByUrl)
       .pipe(
         takeUntil(this.componentDestroyed$)
       )
       .subscribe(observer);
-
-    observer = {
-      ...observer,
-      next: (params: ParamMap) => {
-        const id = Number(params.get('productId'));
-        if (id) {
-          this.store.dispatch(ProductActions.getProduct({ productId: +id }));
-        }
-      }
-    };
-
-    this.route.paramMap.subscribe(observer);
   }
   
   ngOnDestroy(): void {

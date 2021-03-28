@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ProductExistsGuard, ProductsStatePreloadingGuard } from '../product/guards';
 import { AdminComponent } from './admin.component';
 import { ProductListComponent, ProductFormComponent, ProductComponent, ProductViewComponent, OrderListComponent, OrderComponent } from './components';
 import { AdminGuard } from './guards/admin.guard';
@@ -24,7 +25,8 @@ const routes: Routes = [
             },
             {
                 path: 'product-list',
-                component: ProductListComponent
+                component: ProductListComponent,
+                canActivate: [ProductsStatePreloadingGuard],
             },
             {
                 path: 'product-add',
@@ -32,13 +34,15 @@ const routes: Routes = [
             },
             {
                 path: 'product-details/:productId',
-                component: ProductViewComponent
+                component: ProductViewComponent,
+                canActivate: [ProductExistsGuard]
             },
             {
                 path: 'product-edit/:productId',
                 component: ProductFormComponent,
                 canDeactivate: [CanDeactivateGuard],
-                resolve: { resolvedData: EditResolver }
+                resolve: { resolvedData: EditResolver },
+                canActivate: [ProductExistsGuard]
             }
         ]
     }
