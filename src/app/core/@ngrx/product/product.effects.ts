@@ -5,20 +5,18 @@ import * as ProductActions from './product.action'
 
 // rxjs
 import { Observable } from 'rxjs';
-import { concatMap, pluck, switchMap } from 'rxjs/operators';
+import { concatMap, pluck, switchMap, map } from 'rxjs/operators';
 
 import { ProductPromiseService } from 'src/app/product/services';
 import { IProduct } from 'src/app/product/models/product';
 
 // router
-import { Router } from '@angular/router';
-
+import * as RouterActions from './../router/router.actions';
 
 @Injectable()
 export class ProductEffects {
 
   constructor(
-    private router: Router,
     private actions$: Actions,
     private productPromiseService: ProductPromiseService) {
     console.log('[PRODUCTS EFFECTS]');
@@ -54,7 +52,7 @@ export class ProductEffects {
       concatMap((product: IProduct) =>
         this.productPromiseService.updateProduct(product)
           .then((updatedProduct: IProduct) => {
-            this.router.navigate(['/admin/product-list']);
+            // this.router.navigate(['/admin/product-list']);
             return ProductActions.updateProductSuccess({ product: updatedProduct })
           })
           .catch(error => ProductActions.updateProductError({ error }))
@@ -69,7 +67,7 @@ export class ProductEffects {
       concatMap((product: IProduct) =>
         this.productPromiseService.createProduct(product)
           .then((createdProduct: IProduct) => {
-            this.router.navigate(['/admin/product-list']);
+            // this.router.navigate(['/admin/product-list']);
             return ProductActions.createProductSuccess({ product: createdProduct });
           })
           .catch(error => ProductActions.createProductError({ error }))
@@ -91,4 +89,16 @@ export class ProductEffects {
       )
     )
   );
+
+  createUpdateTaskSuccess$: Observable<Action> = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProductActions.createProductSuccess, ProductActions.updateProductSuccess),
+      map(action =>
+        RouterActions.go({
+          path: ['/admin/product-list']
+        })
+      )
+    );
+  });
+
 }

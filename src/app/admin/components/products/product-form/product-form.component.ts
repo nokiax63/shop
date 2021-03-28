@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ParamMap, Router } from '@angular/router';
 import { IProduct, Product, ProductCategory } from 'src/app/product/models/product';
-
+import * as RouterActions from './../../../../core/@ngrx/router/router.actions';
 // rxjs
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -23,14 +22,13 @@ export class ProductFormComponent implements OnInit, OnDestroy {
   private componentDestroyed$: Subject<void> = new Subject<void>();
 
   constructor(
-    private store: Store,
-    private router: Router) { }
+    private store: Store) { }
 
   ngOnInit(): void {
     let observer: any = {
       next: (product: Product) => {
         this.product = { ...product };
-        
+
       },
       error(err: any) {
         console.log(err);
@@ -46,7 +44,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
       )
       .subscribe(observer);
   }
-  
+
   ngOnDestroy(): void {
     this.componentDestroyed$.next();
     this.componentDestroyed$.complete();
@@ -56,16 +54,18 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     this.isDirty = false;
     const product = { ...this.product } as IProduct;
     if (product.id) {
-      this.store.dispatch(ProductActions.updateProduct({product}));
+      this.store.dispatch(ProductActions.updateProduct({ product }));
     }
     else {
-      this.store.dispatch(ProductActions.createProduct({product}));
+      this.store.dispatch(ProductActions.createProduct({ product }));
     }
     this.closePage();
   }
 
   closePage(): void {
-    this.router.navigate(['/admin/product-list']);
+    this.store.dispatch(RouterActions.go({
+      path: ['/admin/product-list']
+    }));
   }
 
   onGoBack(): void {

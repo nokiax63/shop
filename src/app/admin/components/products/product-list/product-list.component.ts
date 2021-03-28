@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as RouterActions from './../../../../core/@ngrx/router/router.actions';
 import { IProduct } from 'src/app/product/models/product';
 
 // @Ngrx
@@ -29,19 +30,26 @@ export class ProductListComponent implements OnInit {
 
   onCreateProduct(): void {
     const link = ['/admin/product-add'];
-    this.router.navigate(link);
+    this.store.dispatch(RouterActions.go({
+      path: link
+    }));
+
 
   }
 
   onEditProduct(product: any): void {
     const link = ['/admin/product-edit', product.id];
-    this.router.navigate(link);
+    this.store.dispatch(RouterActions.go({
+      path: link
+    }));
 
   }
 
   onViewProduct(product: any): void {
     const link = ['/admin/product-details', product.id];
-    this.router.navigate(link);
+    this.store.dispatch(RouterActions.go({
+      path: link
+    }));
   }
 
   onDeleteProduct(product: any) :void {

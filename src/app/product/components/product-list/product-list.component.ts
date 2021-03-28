@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 
 // @Ngrx
 import { Store } from '@ngrx/store';
-import * as ProductActions from '../../../core/@ngrx/product/product.action'
 
 // rxjs
 import { Observable } from 'rxjs';

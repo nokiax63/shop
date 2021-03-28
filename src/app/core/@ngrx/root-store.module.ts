@@ -8,7 +8,7 @@ import { environment } from './../../../environments/environment';
 
 
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
-import { routerReducers, CustomSerializer } from './router';
+import { routerReducers, CustomSerializer, RouterEffects } from './router';
 
 @NgModule({
   declarations: [],
@@ -26,7 +26,7 @@ import { routerReducers, CustomSerializer } from './router';
       }
     }),
     
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([RouterEffects]),
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router',
       routerState: RouterState.Minimal,
