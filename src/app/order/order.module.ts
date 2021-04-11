@@ -6,12 +6,14 @@ import { OrderRoutingModule } from './order-routing.module'
 import { OrderComponent } from './order.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AsyncEmailValidatorDirective } from '../shared/validators/async-email-validator.directive';
+import { ProcessOrderPhoneComponent } from './components/process-order-phone/process-order-phone.component';
 
 @NgModule({
   declarations: 
     [
       OrderRoutingModule.components,
-      AsyncEmailValidatorDirective
+      AsyncEmailValidatorDirective,
+      ProcessOrderPhoneComponent
     ],
   imports: [
     CommonModule,

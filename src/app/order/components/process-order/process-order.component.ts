@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { FirstNameValidators } from 'src/app/shared/validators/first-name.validator';
 import { Order } from '../../models';
 
 @Component({
@@ -11,10 +12,16 @@ import { Order } from '../../models';
   styleUrls: ['./process-order.component.css']
 })
 export class ProcessOrderComponent implements OnInit {
-  
+
   private sub: Subscription;
   orderData: Order
   orderForm: FormGroup;
+
+  placeholder = {
+    address: 'Address'
+  };
+  rMin = 1;
+  rMax = 20;
 
   get firstName(): AbstractControl {
     return this.orderForm.get('firstName');
@@ -23,14 +30,27 @@ export class ProcessOrderComponent implements OnInit {
   get lastName(): AbstractControl {
     return this.orderForm.get('lastName');
   }
-  
+
   get email(): AbstractControl {
     return this.orderForm.get('email');
+  }  
+
+  get phones(): FormArray {
+    return this.orderForm.get('phones') as FormArray;
+  }
+
+  get pickup(): AbstractControl {
+    return this.orderForm.get('pickup');
+  }
+
+  get address(): AbstractControl {
+    return this.orderForm.get('address');
   }
 
   validationMessagesMap = new Map([
     ['firstName', {
       message: '',
+      firstNameRange: `The first name must be longer than ${this.rMin} characters and less than ${this.rMax} characters`,
       required: 'Please enter your first name.',
       minlength: 'The first name must be longer than 3 characters.'
     }],
@@ -44,6 +64,14 @@ export class ProcessOrderComponent implements OnInit {
       pattern: 'Please enter a valid email address.',
       asyncEmailInvalid:
         'Please enter a valid email address'
+    }],
+    ['address', {
+      message: '',
+      required: 'Please enter your address.',
+      minlength: 'The first name must be longer than 3 characters.'
+    }],
+    ['pickup', {
+      message: ''
     }]
   ]);
 
@@ -53,7 +81,7 @@ export class ProcessOrderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.buildForm();    
+    this.buildForm();
     this.watchValueChanges();
   }
 
@@ -63,9 +91,12 @@ export class ProcessOrderComponent implements OnInit {
 
   private buildForm(): void {
     this.orderForm = this.fb.group({
-      firstName: new FormControl('', { validators: [Validators.required, Validators.minLength(3)], updateOn: 'blur' }),
-      lastName: [{value: '', disabled: false }, [Validators.required]],
-      email: ['', [Validators.required]]
+      firstName: new FormControl('', { validators: [Validators.required, FirstNameValidators.checkFirstNameLength(this.rMin, this.rMax)], updateOn: 'blur' }),
+      lastName: [{ value: '', disabled: false }, [Validators.required]],
+      email: ['', [Validators.required]],      
+      phones: this.fb.array([this.buildPhone()]),
+      pickup: false,
+      address: ['', []]
     });
   }
 
@@ -96,17 +127,55 @@ export class ProcessOrderComponent implements OnInit {
     }
   }
 
+  private setAddressValidation(value: boolean): void {
+    this.address.clearValidators();
+
+    if (value) {
+      this.placeholder = {
+        address: 'Address (required)'
+      };
+      this.address.setValidators([
+        Validators.required, 
+        Validators.minLength(3)
+      ]);
+    }
+    else {
+      this.placeholder = {
+        address: 'Address'
+      };
+    }
+
+    this.address.updateValueAndValidity();
+  }
+
   private watchValueChanges(): void {
-    
-    this.sub = this.orderForm.valueChanges
+
+    this.sub = this.pickup.valueChanges
+      .subscribe(value => this.setAddressValidation(value));
+
+    const sub = this.orderForm.valueChanges
       .pipe(debounceTime(500))
       .subscribe(ignorValue =>
         this.setValidationMessages()
       );
+
+    this.sub.add(sub);
   }
 
 
   onSave(): void {
 
+  }
+
+  private buildPhone(): FormControl  {
+    return this.fb.control('');
+  }
+
+  onAddPhone(): void {
+    this.phones.push(this.buildPhone());
+  }
+
+  onRemovePhone(index: number): void {
+    this.phones.removeAt(index);
   }
 }

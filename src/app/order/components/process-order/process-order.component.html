@@ -46,7 +46,6 @@
                     </div>
                 </div>
 
-
                 <div class="form-group" [ngClass]="{'has-error': validationMessagesMap.get('email').message }">
                     <label 
                         class="col-md-2 control-label"
@@ -63,6 +62,59 @@
                             (blur)="onBlur($event)"/>
                         <span class="help-block" *ngIf="validationMessagesMap.get('email').message">
                             {{validationMessagesMap.get('email').message}}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div formArrayName="phones">
+                        <app-process-order-phone 
+                            *ngFor="let phone of phones.controls; let i = index"
+                            [formControlName]="i"
+                            [index]="i"
+                            (removePhone)="onRemovePhone($event)"
+                            >
+                        </app-process-order-phone>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-4 col-md-offset-2">
+                            <button class="btn btn-primary"
+                                    type="button"
+                                    (click)="onAddPhone()">
+                                Add Another Phone
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-8 checkbox" >
+                        <label>
+                            <input id="pickupId"
+                                   type="checkbox" 
+                                   formControlName="pickup" />
+                            Pickup
+                        </label>
+                    </div>
+                </div>
+
+                <div *ngIf="pickup.value" class="form-group" [ngClass]="{'has-error': validationMessagesMap.get('address').message }">
+                    <label 
+                        class="col-md-2 control-label"
+                        for="addressId">
+                        Address
+                    </label> 
+                    <div class="col-md-10">
+                        <input class="form-control"
+                            id="addressId"
+                            type="text"
+                            placeholder="{{placeholder.address}}"
+                            formControlName="address"
+                            (blur)="onBlur($event)"/>
+                        <span class="help-block" *ngIf="validationMessagesMap.get('address').message">
+                            {{validationMessagesMap.get('address').message}}
                         </span>
                     </div>
                 </div>
