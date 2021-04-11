@@ -3,8 +3,10 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { CartService } from 'src/app/cart/services/cart.service';
 import { FirstNameValidators } from 'src/app/shared/validators/first-name.validator';
 import { Order } from '../../models';
+import { OrderService } from '../../services';
 
 @Component({
   selector: 'app-process-order',
@@ -75,8 +77,11 @@ export class ProcessOrderComponent implements OnInit {
     }]
   ]);
 
-  constructor(private router: Router,
-    private fb: FormBuilder) {
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private cartService: CartService,
+    private orderService: OrderService) {
     this.orderData = this.router.getCurrentNavigation()?.extras?.state as Order;
   }
 
@@ -165,6 +170,20 @@ export class ProcessOrderComponent implements OnInit {
 
   onSave(): void {
 
+    this.orderData.firstName = this.firstName.value;
+    this.orderData.lastName = this.lastName.value;
+    this.orderData.email = this.email.value;
+    this.orderData.phones = this.phones.value;
+    this.orderData.address = this.address.value;
+    
+    const observer = {
+      next: (order: Order) => {
+        this.cartService.removeAllProducts();
+        alert("Order succesfully created");
+      },
+      error: (err: any) => console.log(err)
+    };
+    this.sub.add(this.orderService.createOrder(this.orderData).subscribe(observer));
   }
 
   private buildPhone(): FormControl  {

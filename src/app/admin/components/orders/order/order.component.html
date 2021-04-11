@@ -3,6 +3,14 @@
     <div class="panel-heading">Number № {{order.number}}</div>
     <div class="panel-body">
         <ul>
+            <li>First name: {{order.firstName}}</li>
+            <li>Last name: {{order.lastName}}</li>
+            <li>Email: {{order.email}}</li>
+            <li>Address: {{order.address}}</li>
+            <li>Phones:</li>
+            <ul *ngIf="order.phones"> 
+                <li *ngFor="let ph of order.phones"> {{ ph?.phone }}</li>
+            </ul>
             <li>Date: {{order.date | date: 'dd.MM.yyyy HH:mm'}}</li>
             <li>Total sum: {{order.totalSum}}</li>
             <li>Total quantity: {{order.totalQuantity}}</li>

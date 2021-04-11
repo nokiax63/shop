@@ -52,9 +52,6 @@ export class CartListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.cartService.setProductsFromStorage();
     this.setSortProperty(this.sortProperties[0]);
-    // this.sub = this.communicationService.channel$.subscribe(
-    //   data => this.cartService.addProduct(data)
-    // );
   }
 
   onSortProperty(): void {
@@ -85,18 +82,6 @@ export class CartListComponent implements OnInit, OnDestroy {
 
     const order = this.getOrderModel();
     this.router.navigateByUrl('/order/process', { state: order });
-
-    // const order = this.getOrderModel();
-    // this.orderService.createOrder(order);
-    // const observer = {
-    //   next: (order: Order) => {
-    //     this.cartService.removeAllProducts();
-    //     alert("Order succesfully created");
-    //   },
-    //   error: (err: any) => console.log(err)
-    // };
-    // this.sub = this.orderService.createOrder(order).subscribe(observer);
-
   }
 
   private getOrderModel() {
