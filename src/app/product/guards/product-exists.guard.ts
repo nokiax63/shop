@@ -23,7 +23,7 @@ export class ProductExistsGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
         return checkStore(this.store).pipe(
             switchMap(() => {
-                debugger
+                
                 const id = +route?.paramMap?.get('productId');
                 return this.hasProduct(id);
             })

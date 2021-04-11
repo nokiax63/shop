@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { CommunicationService } from '../../../order/services/communication.service';
 import { CartService } from '../../../cart/services/cart.service';
 import { ProductInCart } from '../../models/product-in-cart';
-import { OrderService } from '../../../order/services'
 import { Order, ProductInOrder } from 'src/app/order/models';
+import { Router } from '@angular/router';
 
 export class SortModel {
   constructor(
@@ -47,8 +46,7 @@ export class CartListComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private orderService: OrderService,
-    private communicationService: CommunicationService,
+    private router: Router,
     private cartService: CartService) { }
 
   ngOnInit(): void {
@@ -83,17 +81,21 @@ export class CartListComponent implements OnInit, OnDestroy {
     this.cartService.removeAllProducts();
   }
 
-  onCreateOrder(): void {
+  onCreateOrder(): void { 
+
     const order = this.getOrderModel();
-    this.orderService.createOrder(order);
-    const observer = {
-      next: (order: Order) => {
-        this.cartService.removeAllProducts();
-        alert("Order succesfully created");
-      },
-      error: (err: any) => console.log(err)
-    };
-    this.sub = this.orderService.createOrder(order).subscribe(observer);
+    this.router.navigateByUrl('/order/process', { state: order });
+
+    // const order = this.getOrderModel();
+    // this.orderService.createOrder(order);
+    // const observer = {
+    //   next: (order: Order) => {
+    //     this.cartService.removeAllProducts();
+    //     alert("Order succesfully created");
+    //   },
+    //   error: (err: any) => console.log(err)
+    // };
+    // this.sub = this.orderService.createOrder(order).subscribe(observer);
 
   }
 

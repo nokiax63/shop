@@ -1,0 +1,84 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Process order
+    </div>
+    
+    <div class="panel-body">
+        <form class="form-horizontal"
+            (ngSubmit)="onSave()"
+            [formGroup]="orderForm"> 
+            <fieldset>
+                <div class="form-group" [ngClass]="{'has-error': validationMessagesMap.get('firstName').message }">
+                    <label 
+                        class="col-md-2 control-label"
+                        for="firstNameId">
+                        First Name
+                    </label> 
+                    <div class="col-md-10">
+                        <input class="form-control"
+                            id="firstNameId"
+                            type="text"
+                            placeholder="First Name (required)"
+                            formControlName="firstName"
+                            (blur)="onBlur($event)"/>
+                        <span class="help-block" *ngIf="validationMessagesMap.get('firstName').message">
+                            {{validationMessagesMap.get('firstName').message}}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group" [ngClass]="{'has-error': validationMessagesMap.get('lastName').message }">
+                    <label 
+                        class="col-md-2 control-label"
+                        for="lastNameId">
+                        Last Name
+                    </label> 
+                    <div class="col-md-10">
+                        <input class="form-control"
+                            id="lastNameId"
+                            type="text"
+                            placeholder="Last Name"
+                            formControlName="lastName"
+                            (blur)="onBlur($event)"/>
+                        <span class="help-block" *ngIf="validationMessagesMap.get('lastName').message">
+                            {{validationMessagesMap.get('lastName').message}}
+                        </span>
+                    </div>
+                </div>
+
+
+                <div class="form-group" [ngClass]="{'has-error': validationMessagesMap.get('email').message }">
+                    <label 
+                        class="col-md-2 control-label"
+                        for="emailId">
+                        Email
+                    </label> 
+                    <div class="col-md-10">
+                        <input class="form-control"
+                            id="emailId"
+                            type="text"
+                            placeholder="Email (required)"
+                            formControlName="email"
+                            appAsyncEmailValidator
+                            (blur)="onBlur($event)"/>
+                        <span class="help-block" *ngIf="validationMessagesMap.get('email').message">
+                            {{validationMessagesMap.get('email').message}}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-4 col-md-offset-2">
+                        <span>
+                            <button class="btn btn-primary"
+                                type="submit"
+                                [disabled]="!orderForm.valid">                            
+                                Save
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </fieldset> 
+        </form>
+    </div>
+</div>
